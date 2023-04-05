@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NetworkClientV2 {
 
@@ -72,20 +73,108 @@ public class NetworkClientV2 {
 
     }
 
-    // Making a post request by providing headers. JSON body and Host url
-//    public static Response sendPOST(String url, String requestBody, Map<String, String> headers) throws UnsupportedEncodingException {
-//
-//        String curlRequest = "curl - X POST " + " " + url + " ";
-//
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-//        HttpPost httpPost = new HttpPost(url);
-//
-//        httpPost.setEntity(new StringEntity(requestBody));
-//
-//        for (Map.Entry<String, String> entry : headers.entrySet()) {
-//
-//        }
-//
-//
-//    }
+    //    Making a post request by providing headers, JSON body and Host url
+    public static Response sendPOST(String url, String requestBody, Map<String, String> headers) throws IOException {
+
+        String curlRequest = "curl -X POST "+" " + url + " ";
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setEntity(new StringEntity(requestBody));
+
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+            httpPost.addHeader(entry.getKey(), entry.getValue());
+            if(!entry.getKey().equalsIgnoreCase(AUTHORIZATION))
+                curlRequest += " -H " + "'" + entry.getKey() + ": "+ entry.getValue() + "'" + " ";
+        }
+
+        if (Objects.nonNull(requestBody)) {
+            curlRequest += "-d " + "'" + requestBody + "'";
+        }
+
+        CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+        StringBuffer body = new StringBuffer();
+
+        if (httpResponse.getEntity() != null) {
+            String inputLine;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
+            while ((inputLine = reader.readLine()) != null) {
+                body.append(inputLine);
+            }
+            reader.close();
+        }
+
+        httpClient.close();
+
+        HashMap<String, String> tempResponseHeaders = new HashMap<>();
+
+        Header[] responseHeaders = httpResponse.getAllHeaders();
+        for (Header header : responseHeaders)
+            tempResponseHeaders.put(header.getName(), header.getValue());
+
+        Response response = new Response();
+        response.setBody(body.toString());
+        response.setStatusCode(httpResponse.getStatusLine().getStatusCode());
+        response.setStatusLine(httpResponse.getStatusLine().toString());
+        response.setHeaders(tempResponseHeaders);
+
+        Logger.log("Time: " + System.currentTimeMillis());
+        Logger.log(curlRequest);
+        Logger.log("POST status code: " + response.getStatusCode());
+        Logger.log("url: " + url);
+        Logger.log("Request body: " + requestBody);
+        Logger.log("Response body: " + response.getBody());
+
+        return response;
+    }
+
+    // Making a post request by providing Host url and headers
+    public static Response sendPOST(String url, Map<String, String> headers) throws IOException {
+
+        String curlRequest = "curl -X POST " + " " + url + " ";
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+            httpPost.addHeader(entry.getKey(), entry.getValue());
+            if(!entry.getKey().equalsIgnoreCase(AUTHORIZATION))
+                curlRequest += " -H " + "'" + entry.getKey() + ": " + entry.getValue() + "'" + " ";
+        }
+
+        CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+        StringBuffer body = new StringBuffer();
+
+        if (httpResponse.getEntity() != null) {
+            String inputLine;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
+            while ((inputLine = reader.readLine()) != null) {
+                body.append(inputLine);
+            }
+            reader.close();
+        }
+
+        httpClient.close();
+
+        HashMap<String, String> tempResponseHeaders = new HashMap<>();
+
+        Header[] responseHeaders = httpResponse.getAllHeaders();
+        for (Header header : responseHeaders)
+            tempResponseHeaders.put(header.getName(), header.getValue());
+
+        Response response = new Response();
+        response.setBody(body.toString());
+        response.setStatusCode(httpResponse.getStatusLine().getStatusCode());
+        response.setStatusLine(httpResponse.getStatusLine().toString());
+        response.setHeaders(tempResponseHeaders);
+
+        Logger.log("Time: " + System.currentTimeMillis());
+        Logger.log(curlRequest);
+        Logger.log("POST status code: " + response.getStatusCode());
+        Logger.log("url: " + url);
+        Logger.log("Response body: " + response.getBody());
+
+        return response;
+    }
 }
