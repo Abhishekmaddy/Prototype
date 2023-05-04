@@ -21,4 +21,15 @@ public class payload {
                 "}";
 
     }
+
+    public static String UpdatePlace(){
+
+        return "{\n" +
+                "\"place_id\":\"788968f65a99aa0c45d3308e4b6dc76e\",\n" +
+                "\"address\":\"70 Summer walk, USA\",\n" +
+                "\"key\":\"qaclick123\"\n" +
+                "}";
+
+
+    }
 }

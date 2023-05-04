@@ -23,7 +23,7 @@ public class JsonAssertUtility {
     UUID uuid;
 
     public JsonAssertUtility() throws IOException {
-        File file = new File("./src/test/resources/clm/responsecontracts/response_contracts.json");
+        File file = new File("src/test/resources/payloads/request_payloads.json");
         content = FileUtils.readFileToString(file, "utf-8");
         payloadObject = new JSONObject(content);
         uuid = UUID.randomUUID();

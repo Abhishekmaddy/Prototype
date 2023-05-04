@@ -1,0 +1,47 @@
+{
+
+  "fname": "abc",
+  "lname": "xyz",
+  "Country": [
+
+    {
+
+      "CountryDetails": [
+
+        {
+
+          "countryName": "India",
+          "Address": "address1",
+          "latitude": 0.34342,
+          "longitude": 9.93939
+        }
+      ]
+    },
+    {
+
+      "CountryDetails": [
+
+        {
+
+          "countryName": "UK",
+          "Address": "address2",
+          "latitude": 0.34341,
+          "longitude": 9.93839
+        }
+      ]
+    },
+    {
+
+      "CountryDetails": [
+
+        {
+
+          "countryName": "USA",
+          "Address": "address3",
+          "latitude": 0.34300,
+          "longitude": 9.93111
+        }
+      ]
+    }
+  ]
+}

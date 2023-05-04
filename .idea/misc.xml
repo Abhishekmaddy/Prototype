@@ -14,4 +14,11 @@
   <component name="ProjectType">
     <option name="id" value="jpab" />
   </component>
+  <component name="jsonEditor">
+    <option name="stateMap">
+      <map>
+        <entry key="Prototype" value="{&#10;&#9;&quot;data&quot;:[&#10;&#9;&#9;{&#10;&#9;&#9;&#9;&quot;courseName&quot;:&quot;Appium&quot;,&#10;&#9;&#9;&#9;&quot;purchaseDate&quot;:&quot;2023-04-12&quot;,&#10;&#9;&#9;&#9;&quot;amount&quot;:99,&#10;&#9;&#9;&#9;&quot;location&quot;:&quot;Asia&quot;&#10;&#9;&#9;},&#10;&#9;&#9;{&#10;&#9;&#9;&#9;&quot;courseName&quot;:&quot;WebServices&quot;,&#10;&#9;&#9;&#9;&quot;purchaseDate&quot;:&quot;2023-04-12&quot;,&#10;&#9;&#9;&#9;&quot;amount&quot;:21,&#10;&#9;&#9;&#9;&quot;location&quot;:&quot;Asia&quot;&#10;&#9;&#9;},&#10;&#9;&#9;{&#10;&#9;&#9;&#9;&quot;courseName&quot;:&quot;Jmeter&quot;,&#10;&#9;&#9;&#9;&quot;purchaseDate&quot;:&quot;2023-04-12&quot;,&#10;&#9;&#9;&#9;&quot;amount&quot;:76,&#10;&#9;&#9;&#9;&quot;location&quot;:&quot;Asia&quot;&#10;&#9;&#9;}&#10;&#9;]&#10;}" />
+      </map>
+    </option>
+  </component>
 </project>

@@ -13,10 +13,10 @@ import java.util.Map;
 public class ApiCommonFunctions {
     static String content;
     static JSONObject payloadObject;
-    static JSONObject eventPayloads;
+
 
     public ApiCommonFunctions(){
-        File file = new File("./src/test/resources/payloads/request_payloads.json");
+        File file = new File("src/test/resources/payloads/request_payloads.json");
         try {
             content = FileUtils.readFileToString(file, "utf-8");
         } catch (IOException e) {
@@ -25,19 +25,22 @@ public class ApiCommonFunctions {
     }
 
     // Creates request payload by assigning values sent from the test class
-    public synchronized JSONObject setPayloadValue(HashMap<String, String> hm, JSONObject requestPayload) {
-        for (String key : hm.keySet()) {
-            requestPayload.put(key, hm.get(key));
-        }
-        return requestPayload;
-    }
+
 
     //CreateBook
     public void createBookPost(HashMap<String, String> hm, Map<String, String> requestHeaders) throws IOException {
         JSONObject createBookRequestPayload=payloadObject.getJSONObject("createBookPayload");
         setPayloadValue(hm, createBookRequestPayload);
-        JSONObject createBookResponseJSON = new JSONObject(BooksActions.createBook(createBookRequestPayload.toString(),requestHeaders));
+        JSONObject createBookResponseJSON = new JSONObject
+                (BooksActions.createBook(createBookRequestPayload.toString(),requestHeaders));
         Assert.assertEquals(createBookResponseJSON.getInt("statusCode"), "200", "Status code is other than 200");
+    }
+
+    public synchronized JSONObject setPayloadValue(HashMap<String, String> hm, JSONObject requestPayload) {
+        for (String key : hm.keySet()) {
+            requestPayload.put(key, hm.get(key));
+        }
+        return requestPayload;
     }
 
 }
