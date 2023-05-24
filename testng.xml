@@ -4,6 +4,7 @@
     <test verbose="2" preserve-order="true" name="D:/abhishekSDET">
 
         <classes>
+            <class name="book.JsonParsonNewMethod"/>
         </classes>
 
     </test>
